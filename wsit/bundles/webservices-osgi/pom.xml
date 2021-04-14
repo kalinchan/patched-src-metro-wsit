@@ -216,7 +216,7 @@
                             org.jvnet.ws.*;version=${jaxws.osgiVersion},
                             org.apache.jcp.xml.dsig.*;version=${santuario.version},
                             org.apache.xml.security;version=${santuario.version},
-                            org.apache.xml.security.*;version=${santuario.version}
+                            org.apache.xml.security.*;version=${santuario.version},
                             com.sun.org.apache.xml.internal.resolver;version=${resolver.version},
                             com.sun.org.apache.xml.internal.resolver.*;version=${resolver.version}
                         </Export-Package>
