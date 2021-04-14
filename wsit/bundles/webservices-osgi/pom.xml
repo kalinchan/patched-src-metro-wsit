@@ -2,7 +2,6 @@
 <!--
 
     Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
-    Copyright (c) 2019 Payara Foundation and/or its affiliates.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -217,8 +216,6 @@
                             org.apache.jcp.xml.dsig.*;version=${santuario.version},
                             org.apache.xml.security;version=${santuario.version},
                             org.apache.xml.security.*;version=${santuario.version}
-                            com.sun.org.apache.xml.internal.resolver;version=${resolver.version},
-                            com.sun.org.apache.xml.internal.resolver.*;version=${resolver.version}
                         </Export-Package>
                         <Import-Package>
                             javax.activation;version=!,
