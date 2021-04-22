@@ -87,6 +87,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${generated.sources.dir}</outputDirectory>
                                 </artifactItem>
+                                <!-- There are no sources for this
                                 <artifactItem>
                                     <groupId>${project.groupId}</groupId>
                                     <artifactId>wstx-core</artifactId>
@@ -95,6 +96,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${generated.sources.dir}</outputDirectory>
                                 </artifactItem>
+                                -->
                                 <artifactItem>
                                     <groupId>${project.groupId}</groupId>
                                     <artifactId>wssx-impl</artifactId>

@@ -587,7 +587,7 @@
         <module>ws-tx</module>
         <module>xmlfilter</module>
         <module>bundles</module>
-        <module>docs</module>
+        <!--<module>docs</module>-->
         <module>tests</module>
         <!-- module>contribs</module -->
     </modules>
