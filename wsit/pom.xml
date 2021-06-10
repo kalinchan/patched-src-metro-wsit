@@ -50,7 +50,7 @@
         <groupId>org.glassfish.metro</groupId>
         <artifactId>metro-bom-ext</artifactId>
         <relativePath>boms/bom-ext/pom.xml</relativePath>
-        <version>2.3.2-SNAPSHOT</version>
+        <version>2.3.2-b608.payara-p4</version>
     </parent>
 
     <groupId>org.glassfish.metro</groupId>
@@ -587,7 +587,7 @@
         <module>ws-tx</module>
         <module>xmlfilter</module>
         <module>bundles</module>
-        <module>docs</module>
+        <!--<module>docs</module>-->
         <module>tests</module>
         <!-- module>contribs</module -->
     </modules>
@@ -771,6 +771,18 @@
     
     <repositories>
         <repository>
+            <id>payara-patched-externals</id>
+            <name>Payara Patched Externals</name>
+            <url>https://raw.github.com/payara/Payara_PatchedProjects/master</url>
+            <!--<url>file:///opt/PayaraDev/Payara_PatchedProjects</url>-->
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <id>releases.java.net</id>
             <url>https://maven.java.net/content/repositories/releases/</url>
             <layout>default</layout>
@@ -785,6 +797,31 @@
             <url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+   <pluginRepository>
+            <id>jvnet-nexus-promoted</id>
+            <name>Java.net Promoted Repositories</name>
+            <url>https://maven.java.net/content/repositories/promoted/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>payara-patched-externals</id>
+            <name>Payara Patched Externals</name>
+            <url>https://raw.github.com/payara/Payara_PatchedProjects/master</url>
+            <!--<url>file:///opt/PayaraDev/Payara_PatchedProjects</url> -->
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
   
     <properties>
         <release.repository.url>https://maven.java.net/content/repositories/releases/</release.repository.url>
