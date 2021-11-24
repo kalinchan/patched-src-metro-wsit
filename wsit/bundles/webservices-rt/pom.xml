@@ -217,6 +217,13 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${generated.sources.dir}</outputDirectory>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
+                                    <classifier>sources</classifier>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -282,8 +289,11 @@
                                     <include>com.sun.xml.registry:jaxr-impl</include>
                                     <include>com.sun.xml.rpc:jaxrpc-impl</include>
                                     <include>com.sun.xml.rpc:jaxrpc-spi</include>
+                                    <!-- santuario -->
                                     <include>org.apache.santuario:xmlsec</include>
-                                    <include>commons-logging:commons-logging</include>
+                                    <include>org.slf4j:slf4j-api</include>
+                                    <include>commons-codec:commons-codec</include>
+
                                     <include>com.sun.xml.stream.buffer:streambuffer</include>
                                     <include>com.sun.xml.ws:jaxws-rt</include>
                                     <include>com.sun.xml.ws:policy</include>
@@ -310,13 +320,6 @@
                                     <artifact>com.sun.xml.rpc:jaxrpc-impl</artifact>
                                     <excludes>
                                         <exclude>META-INF/jaxrpc/ToolPlugin.xml</exclude>
-                                    </excludes>
-                                </filter>
-                                <filter>
-                                    <artifact>org.apache.santuario:xmlsec</artifact>
-                                    <excludes>
-                                        <!-- included in JDK -->
-                                        <exclude>javax/xml/crypto/**</exclude>
                                     </excludes>
                                 </filter>
                                 <filter>
@@ -357,12 +360,6 @@
                             <version>2.5.0</version>
                         </dependency>
                     </additionalDependencies>
-                    <sourceFileExcludes>
-                        <sourceFileExclude>META-INF/**</sourceFileExclude>
-                        <sourceFileExclude>**/msv/**</sourceFileExclude>
-                        <sourceFileExclude>**/osgi/**</sourceFileExclude>
-                        <sourceFileExclude>org/apache/**</sourceFileExclude>
-                    </sourceFileExcludes>
                 </configuration>
             </plugin>
         </plugins>
