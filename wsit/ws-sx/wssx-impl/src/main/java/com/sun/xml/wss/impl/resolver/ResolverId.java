@@ -357,12 +357,14 @@ public class ResolverId extends ResourceResolverSpi {
 	}
    }
 
-    public XMLSignatureInput engineResolveURI(ResourceResolverContext context) throws ResourceResolverException {
-        return null;
+    @Override
+    public XMLSignatureInput engineResolveURI(ResourceResolverContext rrc) throws ResourceResolverException {
+        return engineResolve(rrc.attr, rrc.baseUri);
     }
 
-    public boolean engineCanResolveURI(ResourceResolverContext context) {
-        return false;
+    @Override
+    public boolean engineCanResolveURI(ResourceResolverContext rrc) {
+        return engineCanResolve(rrc.attr, rrc.baseUri);
     }
 }
 

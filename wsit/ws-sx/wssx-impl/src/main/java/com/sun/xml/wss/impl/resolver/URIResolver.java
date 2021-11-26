@@ -552,12 +552,14 @@ public class URIResolver extends ResourceResolverSpi {
                                     "Can not resolve reference type",
                                     "Required SOAPMessage instance to resolve reference"};
 
-    public XMLSignatureInput engineResolveURI(ResourceResolverContext resourceResolverContext) throws ResourceResolverException {
-        return null;
+    @Override
+    public XMLSignatureInput engineResolveURI(ResourceResolverContext rrc) throws ResourceResolverException {
+        return engineResolve(rrc.attr, rrc.baseUri);
     }
 
-    public boolean engineCanResolveURI(ResourceResolverContext resourceResolverContext) {
-        return false;
+    @Override
+    public boolean engineCanResolveURI(ResourceResolverContext rrc) {
+        return engineCanResolve(rrc.attr, rrc.baseUri);
     }
 }
 
