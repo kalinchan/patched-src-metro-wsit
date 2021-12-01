@@ -15,22 +15,14 @@
 
 package com.sun.xml.wss.impl.transform;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import com.sun.xml.wss.impl.c14n.Canonicalizer;
 import com.sun.xml.wss.impl.c14n.CanonicalizerFactory;
-
 import com.sun.xml.wss.impl.resolver.AttachmentSignatureInput;
-
-import org.apache.xml.security.c14n.CanonicalizationException;
-import org.apache.xml.security.c14n.InvalidCanonicalizerException;
+import org.apache.xml.security.signature.XMLSignatureInput;
 import org.apache.xml.security.transforms.TransformSpi;
-import org.apache.xml.security.signature.XMLSignatureInput; 
 import org.apache.xml.security.transforms.TransformationException;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
 import java.io.OutputStream;
 
 public class AttachmentContentOnlyTransform extends TransformSpi {
@@ -44,8 +36,8 @@ public class AttachmentContentOnlyTransform extends TransformSpi {
    }
 
    protected XMLSignatureInput enginePerformTransform(
-             XMLSignatureInput input)
-             throws TransformationException {
+           XMLSignatureInput input, OutputStream os, Element transformElement, String baseURI, boolean secureValidation)
+           throws TransformationException {
        try {
             return new XMLSignatureInput(_canonicalize(input));
        } catch (Exception e) {
@@ -69,9 +61,4 @@ public class AttachmentContentOnlyTransform extends TransformSpi {
    public boolean wantsNodeSet ()       { return true; }
    public boolean returnsOctetStream () { return true; }
    public boolean returnsNodeSet ()     { return false; }
-
-    // Required by Santuario 2.2.X
-    protected XMLSignatureInput enginePerformTransform(XMLSignatureInput input, OutputStream os, Element transformElement, String baseURI, boolean secureValidation) throws IOException, CanonicalizationException, InvalidCanonicalizerException, TransformationException, ParserConfigurationException, SAXException {
-        return null;
-    }
 }
