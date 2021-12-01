@@ -44,8 +44,8 @@ public class AttachmentContentOnlyTransform extends TransformSpi {
    }
 
    protected XMLSignatureInput enginePerformTransform(
-             XMLSignatureInput input)
-             throws TransformationException {
+           XMLSignatureInput input, OutputStream os, Element transformElement, String baseURI, boolean secureValidation)
+           throws TransformationException {
        try {
             return new XMLSignatureInput(_canonicalize(input));
        } catch (Exception e) {
@@ -69,9 +69,4 @@ public class AttachmentContentOnlyTransform extends TransformSpi {
    public boolean wantsNodeSet ()       { return true; }
    public boolean returnsOctetStream () { return true; }
    public boolean returnsNodeSet ()     { return false; }
-
-    // Required by Santuario 2.2.X
-    protected XMLSignatureInput enginePerformTransform(XMLSignatureInput input, OutputStream os, Element transformElement, String baseURI, boolean secureValidation) throws IOException, CanonicalizationException, InvalidCanonicalizerException, TransformationException, ParserConfigurationException, SAXException {
-        return null;
-    }
 }
