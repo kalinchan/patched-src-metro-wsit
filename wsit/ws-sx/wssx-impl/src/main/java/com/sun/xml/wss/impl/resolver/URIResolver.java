@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021 Payara Foundation and/or its affiliates.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +21,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.xml.security.utils.resolver.ResourceResolverContext;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
@@ -134,7 +136,7 @@ public class URIResolver extends ResourceResolverSpi {
                   try { 
                      result = _resolveClocation(uri, baseURI);
                   } catch (URIResolverException ure) {
-                     result = ResourceResolver.getInstance(uri, baseURI).resolve(uri, baseURI);
+                      result = ResourceResolver.resolve(new ResourceResolverContext(uri, baseURI, false));
                   }
                   break; 
           default:
@@ -165,14 +167,14 @@ public class URIResolver extends ResourceResolverSpi {
             log.log(Level.SEVERE,
                     LogStringsMessages.WSS_0603_XPATHAPI_TRANSFORMER_EXCEPTION(e.getMessage()),
                     e.getMessage());
-            throw new ResourceResolverException("empty", e, uri, baseUri);
+             throw new ResourceResolverException(e, uri.getValue(), baseUri, "empty");
          }
       }
 
       if (selectedElem == null) {
           log.log(Level.SEVERE,
                    LogStringsMessages.WSS_0604_CANNOT_FIND_ELEMENT());
-          throw new ResourceResolverException("empty", uri, baseUri);
+          throw new ResourceResolverException("empty", uri.getValue(), baseUri);
       }
 
       Set resultSet = prepareNodeSet(selectedElem);
@@ -211,7 +213,7 @@ public class URIResolver extends ResourceResolverSpi {
               ((SecurableSoapMessage)soapMsg).getAttachmentPart(uriNodeValue);
          if (_part == null) {
              // log
-             throw new ResourceResolverException("empty", uri, baseUri);
+             throw new ResourceResolverException("empty", uri.getValue(), baseUri);
          } 
          Object[] obj = AttachmentSignatureInput._getSignatureInput(_part); 
          result = new AttachmentSignatureInput((byte[])obj[1]);
@@ -219,7 +221,7 @@ public class URIResolver extends ResourceResolverSpi {
          ((AttachmentSignatureInput)result).setContentType(_part.getContentType()); 
       } catch (Exception e) {
          // log
-         throw new ResourceResolverException("empty", e, uri, baseUri);
+          throw new ResourceResolverException(e, uri.getValue(), baseUri, "empty");
       }
 
       try {
@@ -239,7 +241,7 @@ public class URIResolver extends ResourceResolverSpi {
          uriNew = getNewURI(uri.getNodeValue(), baseUri);
       } catch (URI.MalformedURIException ex) {
          // log          
-         throw new ResourceResolverException("empty", ex, uri, baseUri);
+          throw new ResourceResolverException(ex, uri.getValue(), baseUri, "empty");
       }
 
       if (soapMsg == null) throw generateException(uri, baseUri, errors[1]);
@@ -255,13 +257,13 @@ public class URIResolver extends ResourceResolverSpi {
          ((AttachmentSignatureInput)result).setMimeHeaders((Vector)obj[0]);
          ((AttachmentSignatureInput)result).setContentType(_part.getContentType()); 
       } catch (XWSSecurityException e) {
-         throw new ResourceResolverException("empty", e, uri, baseUri);
-      } catch (SOAPException spe) {
-         // log
-         throw new ResourceResolverException("empty", spe, uri, baseUri);
-      } catch (java.io.IOException ioe) {
-         // log
-         throw new ResourceResolverException("empty", ioe, uri, baseUri);
+           throw new ResourceResolverException(e, uri.getValue(), baseUri, "empty");
+       } catch (SOAPException spe) {
+           // log
+           throw new ResourceResolverException(spe, uri.getValue(), baseUri, "empty");
+       } catch (java.io.IOException ioe) {
+          // log
+          throw new ResourceResolverException(ioe, uri.getValue(), baseUri, "empty");
       }
 
 
@@ -459,7 +461,7 @@ public class URIResolver extends ResourceResolverSpi {
 
     private ResourceResolverException generateException(Attr uri, String baseUri, String error) {
         XWSSecurityException xwssE = new XWSSecurityException(error);
-        return new ResourceResolverException("empty", xwssE, uri, baseUri);
+        return new ResourceResolverException(xwssE, uri.getValue(), baseUri, "empty");
     }
 
    /**
@@ -549,5 +551,15 @@ public class URIResolver extends ResourceResolverSpi {
     private final String[] errors = new String[] {
                                     "Can not resolve reference type",
                                     "Required SOAPMessage instance to resolve reference"};
+
+    @Override
+    public XMLSignatureInput engineResolveURI(ResourceResolverContext rrc) throws ResourceResolverException {
+        return engineResolve(rrc.attr, rrc.baseUri);
+    }
+
+    @Override
+    public boolean engineCanResolveURI(ResourceResolverContext rrc) {
+        return engineCanResolve(rrc.attr, rrc.baseUri);
+    }
 }
 

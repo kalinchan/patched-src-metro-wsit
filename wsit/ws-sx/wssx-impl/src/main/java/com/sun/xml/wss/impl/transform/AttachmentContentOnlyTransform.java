@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021 Payara Foundation and/or its affiliates.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,16 +15,15 @@
 
 package com.sun.xml.wss.impl.transform;
 
-import javax.mail.internet.ContentType;
-
 import com.sun.xml.wss.impl.c14n.Canonicalizer;
 import com.sun.xml.wss.impl.c14n.CanonicalizerFactory;
-
 import com.sun.xml.wss.impl.resolver.AttachmentSignatureInput;
-
+import org.apache.xml.security.signature.XMLSignatureInput;
 import org.apache.xml.security.transforms.TransformSpi;
-import org.apache.xml.security.signature.XMLSignatureInput; 
 import org.apache.xml.security.transforms.TransformationException;
+import org.w3c.dom.Element;
+
+import java.io.OutputStream;
 
 public class AttachmentContentOnlyTransform extends TransformSpi {
 
@@ -31,13 +31,13 @@ public class AttachmentContentOnlyTransform extends TransformSpi {
           "http://docs.oasis-open.org/wss/2004/XX/" + 
           "oasis-2004XX-wss-swa-profile-1.0#Attachment-Content-Only-Transform";
 
-   protected String engineGetURI() {
+    protected String engineGetURI() {
        return implementedTransformURI;
    }
 
    protected XMLSignatureInput enginePerformTransform(
-             XMLSignatureInput input)
-             throws TransformationException {
+           XMLSignatureInput input, OutputStream os, Element transformElement, String baseURI, boolean secureValidation)
+           throws TransformationException {
        try {
             return new XMLSignatureInput(_canonicalize(input));
        } catch (Exception e) {
