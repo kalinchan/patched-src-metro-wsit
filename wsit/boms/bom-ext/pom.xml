@@ -64,7 +64,7 @@
         <grizzly.version>1.9.36</grizzly.version>
         <gmbal.version>3.1.0-b001</gmbal.version>
         <jaxws.home.uri>http://jax-ws.java.net</jaxws.home.uri>
-        <santuario.version>1.5.8.payara-p1</santuario.version>
+        <santuario.version>1.5.8</santuario.version>
     </properties>
 
     <dependencyManagement>
