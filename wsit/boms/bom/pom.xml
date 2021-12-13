@@ -48,7 +48,7 @@
     <artifactId>metro-bom</artifactId>
     <packaging>pom</packaging>
     <name>Metro Web Services Stack Dependency POM</name>
-    <version>2.3.2-b608.payara-p7-SNAPSHOT</version>
+    <version>2.3.2-b608.payara-p4</version>
     <description>Metro Web Services Stack Dependency POM</description>
     
     <url>http://metro.java.net/</url>
