@@ -9,6 +9,7 @@
 
     SPDX-License-Identifier: BSD-3-Clause
 
+    Portions Copyright 2022 Payara Foundation and/or its affiliates
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -192,6 +193,8 @@
                                 <Export-Package>
                                     org.apache.xml.security.*,
                                     org.apache.jcp.xml.dsig.internal.*,
+                                    com.sun.org.apache.xml.internal.resolver;version=${resolver.version},
+                                    com.sun.org.apache.xml.internal.resolver.*;version=${resolver.version},
                                     !internal.*,
                                     !META-INF.*,
                                     *
