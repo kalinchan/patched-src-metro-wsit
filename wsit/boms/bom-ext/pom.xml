@@ -36,7 +36,7 @@
         <xmlrpc-impl.version>1.1.6</xmlrpc-impl.version>
 
         <!-- CQ: #22139 -->
-        <santuario.version>2.1.7</santuario.version>
+        <santuario.version>2.2.3</santuario.version>
         <!-- CQ: #22187 -->
         <slf4j-api.version>1.7.30</slf4j-api.version>
         <!-- CQ: #22186 -->

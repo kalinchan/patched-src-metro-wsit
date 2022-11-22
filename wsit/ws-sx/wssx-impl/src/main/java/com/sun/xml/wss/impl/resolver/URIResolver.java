@@ -133,10 +133,10 @@ public class URIResolver extends ResourceResolverSpi {
                   result = _resolveCid(uri, baseURI);
                   break;
           case CLOCATION_REFERENCE:
-                  try { 
+                  try {
                      result = _resolveClocation(uri, baseURI);
                   } catch (URIResolverException ure) {
-                     result = ResourceResolver.getInstance(uri, baseURI, false).resolve(uri, baseURI, false);
+                     result = ResourceResolver.resolve(new ResourceResolverContext(uri, baseURI, false));
                   }
                   break; 
           default:

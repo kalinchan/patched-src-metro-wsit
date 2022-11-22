@@ -173,6 +173,13 @@
                                     <classifier>sources</classifier>
                                     <overWrite>false</overWrite>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
+                                    <classifier>sources</classifier>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -293,12 +300,8 @@
                         </dependency>
                     </additionalDependencies>
                     <sourceFileExcludes>
-                        <sourceFileExclude>META-INF/**</sourceFileExclude>
-                        <sourceFileExclude>**/msv/**</sourceFileExclude>
-                        <sourceFileExclude>**/osgi/**</sourceFileExclude>
                         <sourceFileExclude>**/gmbal/**</sourceFileExclude>
                         <sourceFileExclude>**/pfl/**</sourceFileExclude>
-                        <sourceFileExclude>org/apache/**</sourceFileExclude>
                         <!-- temporarily disabled: javadoc/JDK 17 fails on following sources -->
                         <sourceFileExclude>**/xml/registry/**</sourceFileExclude>
                     </sourceFileExcludes>
