@@ -80,6 +80,19 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>unpack-meta-inf-entries</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeTransitive>true</excludeTransitive>
+                            <includes>META-INF/services/*, META-INF/metro-default.xml, META-INF/jaxrpc/*</includes>
+                            <excludes>META-INF/services/com.sun.xml.ws.spi.db.*, META-INF/services/com.sun.tools.*, META-INF/services/javax.xml.bind.*, META-INF/services/javax.xml.stream.*, META-INF/services/javax.mail.*, META-INF/services/org.*</excludes>
+                            <outputDirectory>${dep.sources}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>unpack-sources-mr</id>
                         <phase>generate-sources</phase>
                         <goals>
