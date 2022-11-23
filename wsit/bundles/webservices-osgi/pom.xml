@@ -68,7 +68,7 @@
                         </goals>
                         <configuration>
                             <includeGroupIds>com.sun.xml.messaging.saaj,com.sun.xml.ws,org.glassfish.metro,com.sun.xml.stream.buffer,net.java.dev.stax-utils,
-                                com.sun.xml.registry,com.sun.xml.rpc</includeGroupIds>
+                                com.sun.xml.registry,com.sun.xml.rpc,com.sun.org.apache.xml.internal</includeGroupIds>
                             <excludeArtifactIds>jaxws-eclipselink-plugin,sdo-eclipselink-plugin</excludeArtifactIds>
                             <includeScope>provided</includeScope>
                             <classifier>sources</classifier>
@@ -225,6 +225,7 @@
                                     org.apache.xml.dtm*;resolution:=optional,
                                     org.apache.xml.utils*;resolution:=optional,
                                     org.apache.xpath*;resolution:=optional,
+                                    com.sun.org.apache.xml.internal.*;resolution:=optional,
                                     *
                                 </Import-Package>
                                 <DynamicImport-Package>
@@ -399,14 +400,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- To be removed after end of support for JDK 8 -->
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
@@ -515,6 +508,11 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.org.apache.xml.internal</groupId>
+            <artifactId>resolver</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
