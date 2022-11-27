@@ -67,8 +67,15 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>com.sun.xml.messaging.saaj,com.sun.xml.ws,org.glassfish.metro,com.sun.xml.stream.buffer,net.java.dev.stax-utils,
-                                com.sun.xml.registry,com.sun.xml.rpc,com.sun.org.apache.xml.internal</includeGroupIds>
+                            <includeGroupIds>com.sun.xml.messaging.saaj,
+                                com.sun.xml.ws,
+                                org.glassfish.metro,
+                                com.sun.xml.stream.buffer,
+                                net.java.dev.stax-utils,
+                                com.sun.xml.registry,
+                                com.sun.xml.rpc,
+                                com.sun.org.apache.xml.internal
+                            </includeGroupIds>
                             <excludeArtifactIds>jaxws-eclipselink-plugin,sdo-eclipselink-plugin</excludeArtifactIds>
                             <includeScope>provided</includeScope>
                             <classifier>sources</classifier>
@@ -111,13 +118,34 @@
                         <id>unpack-classes</id>
                         <phase>prepare-package</phase>
                         <goals>
-                            <goal>unpack-dependencies</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.apache.santuario,org.slf4j,commons-codec</includeGroupIds>
-                            <includeScope>provided</includeScope>
-                            <excludeTransitive>true</excludeTransitive>
-                            <excludes>module-info.*,META-INF/versions/**,META-INF/MANIFEST.MF</excludes>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.santuario</groupId>
+                                    <artifactId>xmlsec</artifactId>
+                                    <type>jar</type>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
+                                    <type>jar</type>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-simple</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>commons-codec</groupId>
+                                    <artifactId>commons-codec</artifactId>
+                                    <type>jar</type>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
+                            </artifactItems>
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                         </configuration>
                     </execution>
@@ -206,8 +234,6 @@
                                 <Export-Package>
                                     org.apache.xml.security.*,
                                     org.apache.jcp.xml.dsig.internal.*,
-                                    com.sun.org.apache.xml.internal.resolver;version=${resolver.version},
-                                    com.sun.org.apache.xml.internal.resolver.*;version=${resolver.version},
                                     !internal.*,
                                     !META-INF.*,
                                     *
@@ -238,7 +264,6 @@
                                     org.apache.xml.dtm*;resolution:=optional,
                                     org.apache.xml.utils*;resolution:=optional,
                                     org.apache.xpath*;resolution:=optional,
-                                    com.sun.org.apache.xml.internal.*;resolution:=optional,
                                     *
                                 </Import-Package>
                                 <DynamicImport-Package>
@@ -413,6 +438,14 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- To be removed after end of support for JDK 8 -->
+        <dependency>
+            <groupId>com.sun.org.apache.xml.internal</groupId>
+            <artifactId>resolver</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
@@ -519,13 +552,13 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
