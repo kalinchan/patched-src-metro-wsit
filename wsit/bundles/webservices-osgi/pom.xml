@@ -9,6 +9,7 @@
 
     SPDX-License-Identifier: BSD-3-Clause
 
+    Portions Copyright 2022 Payara Foundation and/or its affiliates
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -17,7 +18,7 @@
     <parent>
         <groupId>org.glassfish.metro</groupId>
         <artifactId>bundles</artifactId>
-        <version>2.4.8.payara-p1-SNAPSHOT</version>
+        <version>2.4.8.payara-p1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -66,8 +67,15 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>com.sun.xml.messaging.saaj,com.sun.xml.ws,org.glassfish.metro,com.sun.xml.stream.buffer,net.java.dev.stax-utils,
-                                com.sun.xml.registry,com.sun.xml.rpc</includeGroupIds>
+                            <includeGroupIds>com.sun.xml.messaging.saaj,
+                                com.sun.xml.ws,
+                                org.glassfish.metro,
+                                com.sun.xml.stream.buffer,
+                                net.java.dev.stax-utils,
+                                com.sun.xml.registry,
+                                com.sun.xml.rpc,
+                                com.sun.org.apache.xml.internal
+                            </includeGroupIds>
                             <excludeArtifactIds>jaxws-eclipselink-plugin,sdo-eclipselink-plugin</excludeArtifactIds>
                             <includeScope>provided</includeScope>
                             <classifier>sources</classifier>
@@ -75,6 +83,19 @@
                             <excludes>module-info.*,META-INF/jaxws-tubes-default.xml,META-INF/versions/**,META-INF/MANIFEST.MF,META-INF/LICENSE*,META-INF/NOTICE*,
                                 META-INF/services/com.sun.tools.ws.wscompile.Plugin,META-INF/services/com.sun.xml.ws.spi.db.BindingContextFactory,
                                 com/sun/xml/ws/util/version.properties,com/sun/tools/ws/version.properties,META-INF/jaxrpc/ToolPlugin.xml</excludes>
+                            <outputDirectory>${dep.sources}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack-meta-inf-entries</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeTransitive>true</excludeTransitive>
+                            <includes>META-INF/services/*, META-INF/metro-default.xml, META-INF/jaxrpc/*</includes>
+                            <excludes>META-INF/services/com.sun.xml.ws.spi.db.*, META-INF/services/com.sun.tools.*, META-INF/services/javax.xml.bind.*, META-INF/services/javax.xml.stream.*, META-INF/services/javax.mail.*, META-INF/services/org.*</excludes>
                             <outputDirectory>${dep.sources}</outputDirectory>
                         </configuration>
                     </execution>
@@ -97,13 +118,34 @@
                         <id>unpack-classes</id>
                         <phase>prepare-package</phase>
                         <goals>
-                            <goal>unpack-dependencies</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.apache.santuario,org.slf4j,commons-codec</includeGroupIds>
-                            <includeScope>provided</includeScope>
-                            <excludeTransitive>true</excludeTransitive>
-                            <excludes>module-info.*,META-INF/versions/**,META-INF/MANIFEST.MF</excludes>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.santuario</groupId>
+                                    <artifactId>xmlsec</artifactId>
+                                    <type>jar</type>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
+                                    <type>jar</type>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-simple</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>commons-codec</groupId>
+                                    <artifactId>commons-codec</artifactId>
+                                    <type>jar</type>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
+                            </artifactItems>
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                         </configuration>
                     </execution>
@@ -507,6 +549,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

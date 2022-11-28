@@ -24,6 +24,9 @@ import com.sun.xml.wss.impl.resolver.AttachmentSignatureInput;
 import org.apache.xml.security.transforms.TransformSpi;
 import org.apache.xml.security.signature.XMLSignatureInput; 
 import org.apache.xml.security.transforms.TransformationException;
+import org.w3c.dom.Element;
+
+import java.io.OutputStream;
 
 public class AttachmentContentOnlyTransform extends TransformSpi {
 
@@ -36,8 +39,8 @@ public class AttachmentContentOnlyTransform extends TransformSpi {
    }
 
    protected XMLSignatureInput enginePerformTransform(
-             XMLSignatureInput input)
-             throws TransformationException {
+           XMLSignatureInput input, OutputStream os, Element transformElement, String baseURI, boolean secureValidation)
+           throws TransformationException {
        try {
             return new XMLSignatureInput(_canonicalize(input));
        } catch (Exception e) {
