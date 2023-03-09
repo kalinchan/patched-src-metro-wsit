@@ -236,6 +236,7 @@
                                     org.apache.jcp.xml.dsig.internal.*,
                                     !internal.*,
                                     !META-INF.*,
+                                    !org.slf4j.*,
                                     *
                                 </Export-Package>
                                 <Import-Package>
