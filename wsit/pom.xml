@@ -143,6 +143,7 @@
                     <configuration>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
+                            <_noimportjava>true</_noimportjava>
                         </instructions>
                     </configuration>
                 </plugin>
